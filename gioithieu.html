@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #f5f5f5, #eaeaea);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Box-menu */
+        .box-menu {
+            background-color: rgb(240, 118, 179);
+            padding: 10px 0;
+            box-shadow: 0 4px 10px pink; /* Thêm bóng để tạo độ sâu */
+        }
+        
+        .box-menu ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box-menu ul li {
+            margin: 0 15px;
+            padding: 15px;
+            position: relative;
+        }
+        
+        .box-menu ul li a {
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        /* Đổi màu hover để không trùng với nền */
+        .box-menu ul li:hover a {
+            color: #CC0000; /* Màu nhạt hơn cho contrast */
+        }
+        
+        .box-submenu {
+            display: none;
+        }
+        
+        .box-menu ul li:hover .box-submenu {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            padding: 10px 0;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        
+        .box-submenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box-submenu ul li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc; /* Sử dụng màu xám cho viền */
+        }
+        
+        .box-submenu ul li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Đổi màu cho menu con để dễ đọc hơn */
+        .box-submenu ul li a {
+            color: #FF6666; /* Đổi thành màu đậm hơn */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .box-submenu ul li:hover a {
+            color: #333; /* Màu đậm hơn khi hover */
+        }
+        
+        .cart {
+            float: right;
+            color: white;
+            padding: 14px 20px;
+            background-color: rgb(240, 118, 179);
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .kieu1 {
+            padding: 20px;
+            text-align: center;
+            color: salmon;
+            font-weight: bold;
+            margin-top: 10px; /* Thêm khoảng cách trên */
+        }
+        
+        .logo {
+            width: 80px;
+            display: flex;
+            justify-content: flex-start; 
+            letter-spacing: 5px;
+            border-radius: 50%;
+        }
+
+        .timkiem-a {
+            width: 500px;
+            height: 20px;
+        }
+
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: white;
+            color: rgb(28, 29, 29);
+            padding: 15px 0px;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            position: absolute;
+            will-change: transform;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .anh img {
+            width: 100%; /* Chiếm toàn bộ chiều ngang */
+            height: 500PX; /* Chiều cao tự động theo tỷ lệ */
+        }
+        .chu{
+            font-size: xx-large;
+            color: #7a3664;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+        .hi{
+            background-color: magenta;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="marquee">
+        [こんにちは！] Chào mừng bạn đến với thế giới mỹ phẩm Japan của shop Nguyen Thuong chúc bạn có một trải nghiệm mua sắm thật vui vẻ ＜３
+    </div><br><br>
+    
+    <form class="timkiem" action="/search" method="GET">
+        <input type="text" name="query" class="timkiem-a" placeholder="Tìm kiếm sản phẩm...">
+        <button type="submit">Search</button>
+    </form><br><br>
+
+    <div class="box-menu">
+        <ul>
+            <img src="logo.jpg" alt="Logo Thời Trang" class="logo">
+            <li><a href="home.html">Trang Chủ</a>
+                <div class="box-submenu">   
+                    <ul>
+                        <li><a href="gioithieu.html">Giới thiệu</a></li>
+                        <li><a href="">Hướng dẫn đặt hàng</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a href="hotspp.html">Hot sp</a></li>
+            <li><a href="newsp.html">New sp</a></li>
+            <li><a href="">Sell</a></li>
+            <li class="cart">
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                    </svg>
+                </a>
+            </li>
+            <li><a href="dangnhap.html">Đăng nhập</a></li>
+        </ul> 
+    </div>   <br>
+<div class="chu">
+    <P>GIỚI THIỆU VỀ MỸ PHẨM NHẬT BẢN</P>
+</div>
+    <div class="anh">
+        <img src="media/nhat.jpg" alt="Ảnh sản phẩm"><br>
+    </div>
+   <h2> <b>1. Chất lượng và Độ tin cậy</h2></b>
+   <h3> Mỹ phẩm Nhật thường được sản xuất theo tiêu chuẩn cao, với quy trình kiểm tra nghiêm ngặt để đảm bảo an toàn và hiệu quả cho người sử dụng.</h3>
+   <h2> <b>2. Thành phần tự nhiên</h2></b>
+   <h3> Nhiều sản phẩm sử dụng thành phần từ thiên nhiên như chiết xuất từ hoa anh đào, trà xanh, và gạo, giúp cung cấp độ ẩm và dinh dưỡng cho da.</h3>
+    <h2><b>3. Công nghệ tiên tiến</h2></b>
+  <h3>  Nhật Bản là nơi dẫn đầu trong nghiên cứu và phát triển mỹ phẩm, với nhiều sản phẩm ứng dụng công nghệ tiên tiến để cải thiện hiệu quả.</h3>
+   <h2> <b>4. Phân khúc đa dạng</h2></b>
+   <h3> Mỹ phẩm Nhật Bản có nhiều loại sản phẩm từ chăm sóc da, trang điểm, đến sản phẩm dưỡng thể, phù hợp với nhiều nhu cầu và loại da khác nhau.</h3>
+    <h2> Chăm sóc da toàn diện</h2></b>
+   <h3> Sản phẩm chăm sóc da Nhật thường tập trung vào việc duy trì độ ẩm và cải thiện sức khỏe tổng thể của da, thay vì chỉ che khuyết điểm.</h3>
+   <h2> <b>6. Phong cách đóng gói tinh tế</h2></b>
+   <h3> Bao bì sản phẩm thường rất tinh tế và bắt mắt, thể hiện sự tôn trọng đối với khách hàng và văn hóa Nhật Bản.</h3>
+   <h2> <b>7. Độ phổ biến</h2></b>
+   <h3> Các thương hiệu như Shiseido, SK-II, DHC, và Canmake đã trở thành tên tuổi lớn trên thị trường quốc tế, thu hút nhiều tín đồ làm đẹp.</h3>
+  <h2>  <b>8. Duy trì truyền thống</h2></b>
+    <h3>Bên cạnh công nghệ hiện đại, nhiều thương hiệu vẫn giữ gìn các phương pháp truyền thống trong sản xuất mỹ phẩm, tạo ra những sản phẩm mang đậm bản sắc văn hóa Nhật Bản.
+    Mỹ phẩm Nhật Bản không chỉ đơn thuần là sản phẩm làm đẹp mà còn phản ánh một phong cách sống, chú trọng đến sức khỏe và vẻ đẹp tự nhiên.</h3>
+    <div class="hi">
+        <!-- Footer -->
+    <footer class="bg-body-tertiary text-center">
+        <!-- Grid container -->
+        <div class="container p-4">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+      
+            <!-- Twitter -->
+            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-twitter"></i
+            ></a>
+      
+            <!-- Google -->
+            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-google"></i
+            ></a>
+      
+            <!-- Instagram -->
+            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-instagram"></i
+            ></a>
+      
+            <!-- Linkedin -->
+            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+      
+            <!-- Github -->
+            <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
+      
+          <!-- Section: Form -->
+          <section class="">
+            <form action="">
+              <!--Grid row-->
+              <div class="row d-flex justify-content-center">
+                <!--Grid column-->
+                <div class="col-auto">
+                  <p class="pt-2">
+                    <strong>Sign up for our newsletter</strong>
+                  </p>
+                </div>
+                <!--Grid column-->
+      
+                <!--Grid column-->
+                <div class="col-md-5 col-12">
+                  <!-- Email input -->
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="email" id="form5Example24" class="form-control" />
+                    <label class="form-label" for="form5Example24">Email address</label>
+                  </div>
+                </div>
+                <!--Grid column-->
+      
+                <!--Grid column-->
+                <div class="col-auto">
+                  <!-- Submit button -->
+                  <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
+                    Subscribe
+                  </button>
+                </div>
+                <!--Grid column-->
+              </div>
+              <!--Grid row-->
+            </form>
+          </section>
+          <!-- Section: Form -->
+      
+          <!-- Section: Text -->
+          <section class="mb-4">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+              repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
+              harum corrupti dicta, aliquam sequi voluptate quas.
+            </p>
+          </section>
+          <!-- Section: Text -->
+      
+          <!-- Section: Links -->
+          <section class="">
+            <!--Grid row-->
+            <div class="row">
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Chăm sóc gia</h5>
+      
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a class="text-body" href="#!">son</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">phấn má</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">bảng mắt</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">sữa tắm</a>
+                  </li>
+                </ul>
+              </div>
+              <!--Grid column-->
+      
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Trang điểm</h5>
+      
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a class="text-body" href="#!">dầu gội</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">dầu xả</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">tẩy tế bào chết</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">dưỡng ẩm</a>
+                  </li>
+                </ul>
+              </div>
+              <!--Grid column-->
+      
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Dầu gội</h5>
+      
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a class="text-body" href="#!">cologen</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">mặt nạ</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">nước hoa hồng</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">gôm</a>
+                  </li>
+                </ul>
+              </div>
+              <!--Grid column-->
+      
+              <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Sữa tắm</h5>
+      
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a class="text-body" href="#!">dove</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">cocon</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">colie</a>
+                  </li>
+                  <li>
+                    <a class="text-body" href="#!">dior</a>
+                  </li>
+                </ul>
+              </div>
+              <!--Grid column-->
+            </div>
+            <!--Grid row-->
+          </section>
+          <!-- Section: Links -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+          © 2020 Copyright:
+          <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </div>
+    
+        
+    </body>
+    </html>
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>Quảng Cáo Tự Động</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            /* Ẩn thanh cuộn */
+        }
+        .slideshow {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+        .slides {
+            position: absolute;
+            width: 100%;
+            height: 400px;
+            opacity: 0; /* Ẩn các slide */
+            transition: opacity 1s ease; /* Hiệu ứng chuyển đổi */
+        }
+        .active {
+            opacity: 1; /* Hiện slide đang hoạt động */
+        }
+        /* Box-menu */
+        .navbar {
+            background-color: #e45cc2;
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 0; /* Đặt thanh điều hướng ở trên cùng */
+            z-index: 1000; /* Đảm bảo nó nằm trên các phần tử khác */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1; /* Để các mục menu chiếm không gian */
+            justify-content: center; /* Căn giữa các mục menu */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+        .navbar a:hover {
+            background-color: #7fda77; /* Màu nền khi di chuột qua */
+            border: none;
+    padding: 0px; /* Giảm padding để làm nút nhỏ lại */
+    border-radius: 1px;
+    cursor: pointer;
+        }
+        .logo {
+            width: 80px;
+            margin-right: 20px;
+            justify-content: flex-start; 
+            letter-spacing: 5px;
+            border-radius: 50%;
+        }
+        .box-submenu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            padding: 10px 0;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        .navbar li {
+            position: relative; /* Để submenu hiển thị đúng vị trí */
+        }
+        .navbar li:hover .box-submenu {
+            display: block;
+        }
+        .box-submenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .box-submenu ul li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc; /* Sử dụng màu xám cho viền */
+        }
+        .box-submenu ul li:last-child {
+            border-bottom: none;
+        }
+        .box-submenu ul li a {
+            color: #FF6666; /* Đổi thành màu đậm hơn */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .box-submenu ul li:hover a {
+            color: #ef4ef5; /* Màu đậm hơn khi hover */
+        }
+        .cart {
+            color: white;
+            padding: 10px 20px;
+            background-color:#ef4ef5;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .cart:hover {
+            background-color:#ef4ef5; /* Màu nền khi hover */
+        }
+        /* Thêm một chút khoảng cách cho .kieu1 */
+        .kieu1 {
+            padding: 20px;
+            text-align: center;
+            color: salmon;
+            font-weight: bold;
+            margin-top: 10px; /* Thêm khoảng cách trên */
+        }
+
+        .timkiem {
+            text-align: center;
+            padding-top: 30px;
+        }
+        
+        .timkiem-a {
+            width: 500px;
+            height: 20px;
+        }
+
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: white;
+            color: rgb(28, 29, 29);
+            padding: 15px 0px;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            position: absolute;
+            will-change: transform;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+
+        .logo {
+            width: 80px; 
+            display: flex;
+            justify-content: flex-start; 
+            letter-spacing: 5px;
+            border-radius: 50%;
+        }
+        .vien{
+            background-color: darksalmon;
+        }
+        .chu{
+            text-align: center;
+            font-size:xx-large;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Khoảng cách giữa các sản phẩm */
+}
+
+.product {
+    width: 380px; /* Điều chỉnh kích thước khung sản phẩm */
+    border: 1px solid #ddd; /* Thêm viền nhạt để sản phẩm nổi bật */
+    border-radius: 8px; /* Bo tròn các góc khung sản phẩm */
+    padding: 15px;
+    text-align: center; /* Canh giữa tất cả các thành phần */
+    background-color: #f9f9f9; /* Màu nền nhạt giúp nổi bật nội dung */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng để sản phẩm nổi bật */
+}
+
+/* Định dạng cho ảnh sản phẩm */
+.product img {
+    width: 100%; /* Ảnh chiếm toàn bộ khung sản phẩm */
+    height: 250px; /* Chiều cao cố định cho tất cả ảnh */
+    border-radius: 8px;
+    margin-bottom: 10px;
+    object-fit: cover; /* Đảm bảo ảnh không bị méo và phù hợp với khung */
+}
+
+/* Định dạng tiêu đề sản phẩm */
+.product h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333; /* Màu sắc đậm để nổi bật */
+}
+
+/* Định dạng cho giá sản phẩm */
+.product p {
+    font-size: 16px;
+    color: #666; /* Màu chữ nhẹ hơn cho mô tả giá */
+    margin-bottom: 12px;
+}
+
+/* Định dạng cho nút giỏ hàng */
+.product button {
+    background-color: rgb(243, 243, 243); /* Màu hồng nổi bật cho nút */
+    border: none;
+    padding: 0px; /* Giảm padding để làm nút nhỏ lại */
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+.product button img {
+    width: 15px; /* Giảm kích thước icon giỏ hàng */
+    height: 15px;
+}
+
+.product button:hover {
+    background-color: #f3a8cc; /* Màu khi di chuột qua nút */
+}
+
+/* Định dạng cho input số lượng */
+.product input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    margin-bottom: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.productst {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Định dạng nút Xem thêm */
+.load-more {
+    text-align: center; /* Canh giữa nút ở cuối trang sản phẩm */
+    margin-top: 20px; /* Khoảng cách giữa sản phẩm và nút */
+    justify-content: center;
+}
+
+        
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #ff6f61;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        } 
+        .hi{
+         background-color:  rgb(243, 199, 243);
+        }
+        
+    </style>
+</head>
+<body>
+  
+    <div class="marquee">
+        [こんにちは！] Chào mừng bạn đến với thế giới mỹ phẩm Japan của shop Nguyen Thuong chúc bạn có một trải nghiệm mua sắm thật vui vẻ ＜３
+        
+    </div>
+
+    <form class="timkiem" action="/search" method="GET">
+        <input type="text" name="query" class="timkiem-a" placeholder="Tìm kiếm sản phẩm...">
+        <button type="submit">Search</button>
+    </form><br>
+
+    <header>
+      <div class="navbar">
+        <img src="logo.jpg" alt="Logo Thời Trang" class="logo">
+        <ul>
+            <li>
+                <a href="trangchu.html">Trang Chủ</a>
+                <div class="box-submenu">   
+                    <ul>
+                        <li><a href="gioithieu.html">Giới thiệu</a></li>
+                        <li><a href="">Hướng dẫn đặt hàng</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a href="hotspp.html">Hot sp</a></li>
+            <li><a href="newsp.html">New sp</a></li>
+            <li><a href="">Sell</a></li>
+            <li><a href="dangnhap.html">Đăng nhập</a></li>
+            <li>
+                <a href="" class="cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="slideshow">
+        <img src="media/NEW1...jpg" class="slides active" alt="Ảnh 1">
+        <img src="media/NEW2...jpg" class="slides" alt="Ảnh 2">
+        <img src="media/NEW3.jpg" class="slides" alt="Ảnh 3">
+        <!-- Thêm nhiều ảnh nếu cần -->
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slides');
+
+        function showSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active'); // Ẩn tất cả slide
+            });
+            slideIndex = (slideIndex + 1) % slides.length; // Tăng chỉ số slide
+            slides[slideIndex].classList.add('active'); // Hiện slide mới
+        }
+
+        setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây
+    </script>
+   <div class="vien"><p class="chu">HOT SP</p></div>
+   <section class="products">
+    <div class="product">
+        
+            <img src="media/mk.jpg" alt="Sản phẩm makeup ">
+     
+        
+        <h3>combo makeup</h3>
+        <p>Giá: 2.000.000 VNĐ</p> 
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+        
+            <img src="son2.jpg" alt="Sản Phẩm 2">
+       
+        <h3>son hela</h3>
+        
+        <p>Giá: 200.000 VNĐ</p>   </a>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+        
+            <img src="media/phấn hồng.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Phấn hồng</h3>
+      
+        <p>Giá: 250.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+       
+            <img src="media/chuốt mi.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Mắt kara</h3>
+      
+        <p>Giá: 150.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    
+    </div>   
+</section><br>
+<section class="products">
+        <div  class="product">
+            <img src="media/phấn mắt.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Phấn mắt</h3>
+        
+        <p>Giá: 250 .000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+        
+            <img src="media/kem nền.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Kem nền</h3>
+       
+        <p>Giá: 250.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+       
+            <img src="media/mi giả.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Mihobeba</h3>
+       
+        <p>Giá: 100.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+       
+            <img src="media/sonbong.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Son mezy</h3>
+       
+        <p>Giá: 160.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    
+</section>
+<section class="productst">
+  <!-- Các sản phẩm sẽ nằm ở đây -->
+  
+  <!-- Nút Xem thêm ở dưới -->
+  
+</section>
+<hr class="custom-hr">
+
+<section class="products">
+    <div class="product">
+        
+            <img src="media/mat na.jpg" alt="Sản phẩm makeup ">
+     
+        
+        <h3>Mặt nạ</h3>
+        <p>Giá: 100.000 VNĐ</p> 
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+        
+            <img src="media/son duong.jpg" alt="Sản Phẩm 2">
+       
+        <h3>Son dưỡng</h3>
+        
+        <p>Giá: 220.000 VNĐ</p>   </a>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+        
+            <img src="media/serum.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Serum</h3>
+      
+        <p>Giá: 250.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+       
+            <img src="media/duong am.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Dưỡng ẩm </h3>
+      
+        <p>Giá: 350.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    
+    </div>   
+    </section><br>
+    <section class="products">
+        <div  class="product">
+            <img src="media/collagen.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Collagen</h3>
+        
+        <p>Giá: 2050 .000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+        
+            <img src="media/nuoc hoa.jpg" alt="Sản Phẩm 3">
+        
+        <h3>hoa hồng</h3>
+       
+        <p>Giá: 150.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+       
+            <img src="media/xịt khoáng.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Xịt khoáng</h3>
+       
+        <p>Giá: 130.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+    <div class="product">
+       
+            <img src="media/duong mi.jpg" alt="Sản Phẩm 3">
+        
+        <h3>Dưỡng mi</h3>
+       
+        <p>Giá: 160.000 VNĐ</p>
+        <label for="quantity2">Số lượng:</label>
+        <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
+        <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
+    </div>
+   
+</section>
+<section class="productst">
+  <!-- Các sản phẩm sẽ nằm ở đây -->
+  
+   
+  <!-- Nút Xem thêm ở dưới -->
+  
+</section><br>
+<hr class="custom-hr">
+  <div class="hi">
+  <!-- Footer -->
+<footer class="bg-body-tertiary text-center">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-github"></i
+      ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+      </svg></a>
+
+      <!-- Twitter -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-twitter"></i
+      ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+        <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+      </svg></a>
+
+      
+
+      <!-- Instagram -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="bi bi-twitter"></i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+          <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/>
+        </svg>
+      </a>
+
+      <!-- Linkedin -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+      </svg></a>
+
+      <!-- Github -->
+      
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Form -->
+    <section class="">
+      <form action="">
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center">
+          <!--Grid column-->
+          <div class="col-auto">
+            <p class="pt-2">
+              <strong>Sign up for our newsletter</strong>
+            </p>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-5 col-12">
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="form5Example24" class="form-control" />
+              <label class="form-label" for="form5Example24">Email address</label>
+            </div>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-auto">
+            <!-- Submit button -->
+            <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
+              Subscribe
+            </button>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </form>
+    </section>
+    <!-- Section: Form -->
+
+    <!-- Section: Text -->
+    <section class="mb-4">
+      <p>
+        Chúc quý khách có một trải nghiệm thật tuyệt vời khi mua hàng bên shop japan mỹ phẩm 
+      </p>
+    </section>
+    <!-- Section: Text -->
+
+    <!-- Section: Links -->
+    <section class="">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Chăm sóc gia</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">Son</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Phấn má</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Bảng mắt</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Sữa tắm</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Trang điểm</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">Dầu gội</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Dầu xả</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Tẩy tế bào chết</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Dưỡng ẩm</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Dầu gội</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">cologen</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Mặt nạ</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Nước hoa hồng</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Gôm</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Sữa tắm</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">Dove</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Cocon</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Colie</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Dior</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </section>
+    <!-- Section: Links -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-reset fw-bold" href="https://www.japanshop.vn/my-pham-nhat?q=collections:1086663&page=2&view=grid">Mỹ phẩm Japan</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+<p>Nếu bạn cần hỗ trợ, hãy gọi cho chúng tôi theo số: 
+  <a href="tel:+84123456789">+84 987761068</a>
+</p>
+</div>
+
+
+</body>
+</html>
+
+

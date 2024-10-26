@@ -1,0 +1,19 @@
+table{
+    background-color:rgb(236, 124, 31);  
+    margin: 0 auto;
+    border-color: red;
+    border-width: thick;
+    }
+table td{
+    width: 70%;
+    height: 30px;
+}
+.caption{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+.dattieccss{
+    margin-left: calc(50% - 30px);
+}

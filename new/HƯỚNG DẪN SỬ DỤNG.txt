@@ -1,0 +1,10 @@
+Giải nén rồi copy cả file paste vào htdocs
+Tạo sql trên my sql theo hướng dẫn dưới đây:
+
+create database qlgd
+
+create table giangvien(
+	ID_stt int primary key auto_increment,
+	GIANGDUONG varchar(100),
+	GIANGVIEN varchar(100),
+	MONDAY varchar(100))

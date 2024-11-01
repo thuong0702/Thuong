@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập</title>
     <style>
-        body {
+            body {
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #f5f5f5, #eaeaea);
             margin: 0;
@@ -166,6 +166,62 @@
             letter-spacing: 5px;
             border-radius: 50%;
         }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse; /* Gộp các viền lại với nhau */
+            width: 300px; /* Chiều rộng của bảng */
+            
+        }
+
+        th, td {
+            padding: 10px; /* Khoảng cách bên trong */
+            border: 1px solid #ddd; /* Viền cho ô */
+            text-align: left; /* Căn trái cho nội dung */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề */
+        }
+        .mau{
+            color:green;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -174,31 +230,49 @@
             <ul>
                 <img src="logo.jpg" alt="Logo Thời Trang" class="logo">
                 <li><a href="home.html">Trang Chủ</a>
-                    <div class="box-submenu">
-                        <ul>
-                            <li><a href="gioithieu.html">Giới thiệu</a></li>
-                            <li><a href="">Hướng dẫn đặt hàng</a></li>
-                        </ul>
-                    </div>
+                    
                 </li>
-                <li><a href="hotspp.html">Hot sp</a></li>
-                <li><a href="newsp.html">New sp</a></li>
-                <li><a href="">Sell</a></li>
-                <div class="cart">
-                    <li><a href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
-                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
-                        </svg>
-                    </a></li>
-                </div>
-                <li><a href="dangnhap.html">Đăng nhập</a></li>
+                <li><a href="hotspp.html">Hot sp</a>
+                <div class="box-submenu">   
+                  <ul>
+                      <li><a href="gioithieu.html">Son</a></li>
+                      <li><a href="">Makeup</a></li>
+                      <li><a href="gioithieu.html">Kcn</a></li>
+                      <li><a href=""> Dưỡng tóc</a></li>
+
+                  </ul>
+              </div></li>
+                <li><a href="newsp.html">New sp</a>
+                <div class="box-submenu">   
+                  <ul>
+                      <li><a href="gioithieu.html">Son</a></li>
+                      <li><a href="">Makeup</a></li>
+                      <li><a href="gioithieu.html">Kcn</a></li>
+                      <li><a href=""> Dưỡng tóc</a></li>
+
+                  </ul>
+              </div></li>
+                <li><a href="sale.html">Sale</a></li>
+                <li><a href="gioithieu.html">Giới thiệu</a></li>
+              <li><a href="huongdan.html">Hướng dẫn đặt hàng</a></li>
+                <li><a href="dangnhap.php">Đăng nhập</a></li>
+                <li>
+        <a href="" class="cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+            </svg>
+        </a>
+    </li>
             </ul>
         </div>
     </header>
 
+    
+    
+
     <div class="login-container">
-        <h2>Đăng Nhập</h2>
-        <form action="/login" method="POST">
+        <h1 class="mau">Đăng Nhập</h1>
+        <form method="POST">
             <div class="form-group">
                 <label for="username">Tên Đăng Nhập:</label>
                 <input type="text" id="username" name="username" required>
@@ -208,17 +282,39 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
-                <label for="phone">Số Điện Thoại:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="address">Địa Chỉ:</label>
-                <input type="text" id="address" name="address" required>
-            </div>
-            <div class="form-group">
                 <button type="submit">Gửi</button>
             </div>
         </form>
+        <p class="register-link">Chưa có tài khoản? <a href="register.html">Đăng ký ngay!</a></p> <!-- Thêm liên kết đăng ký -->
     </div>
 
+    <?php
+    // Kết nối đến cơ sở dữ liệu
+    $conn = new mysqli('localhost', 'root', '', 'mypham');
+
+    if ($conn->connect_error) {
+        die('Kết nối thất bại: ' . $conn->connect_error);
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Lấy thông tin người dùng từ cơ sở dữ liệu
+        $sql = "SELECT * FROM dangnhap WHERE username='$username' AND password='$password'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Đăng nhập thành công
+            echo "<script>alert('Đăng nhập thành công!');</script>";
+            // Điều hướng đến trang chính
+            echo "<script>window.location.href='home.html';</script>";
+        } else {
+            // Đăng nhập thất bại
+            echo "<script>alert('Tên đăng nhập hoặc mật khẩu không đúng!');</script>";
+        }
+    }
+    $conn->close();
+    ?>
 </body>
+</html>

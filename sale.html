@@ -1,185 +1,165 @@
-    <!DOCTYPE html>
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<meta charset="UTF-8">
 
-    <html lang="vi">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-      <style>
-  body {
-         font-family: Arial, sans-serif;
-         background: linear-gradient(to right, #f5f5f5, #eaeaea);
-         margin: 0;
-         padding: 0;
-      }
-      .navbar {
-         background-color: #e45cc2;
-         color: white;
-         padding: 15px;
-         position: sticky;
-         top: 0;
-         z-index: 1000;
-         display: flex;
-         align-items: center;
-         justify-content: space-between;
-      }
-      .navbar ul {
-         list-style: none;
-         padding: 0;
-         margin: 0;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         flex-grow: 1;
-      }
-      .navbar a {
-         color: white;
-         text-decoration: none;
-         padding: 14px 20px;
-         display: inline-block;
-      }
-      .navbar a:hover {
-         background-color: #7fda77;
-         border-radius: 5px;
-         transition: 0.3s;
-      }
-      .logo {
-         width: 80px;
-         margin-right: 20px;
-         border-radius: 50%;
-      }
-      .box-submenu {
-        display: none;
-   position: absolute; /* Đặt vị trí tuyệt đối dựa vào phần tử chứa nó */
-   background-color: white; /* Màu nền là màu trắng */
-   padding: 5px 0; /* Giảm khoảng cách bên trong để thu nhỏ phần tử */
-   border-radius: 5px; /* Bo tròn các góc với bán kính 5px */
-   z-index: 8; /* Xếp chồng phần tử lên các phần tử khác có z-index thấp hơn */
-   text-align: center; /* Căn giữa nội dung văn bản */
-   font-size: 0.9em; /* Giảm kích thước chữ để tạo cảm giác nhỏ hơn */
+<html lang="vi">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <style>
+body {
+     font-family: Arial, sans-serif;
+     background: linear-gradient(to right, #f5f5f5, #eaeaea);
+     margin: 0;
+     padding: 0;
+  }
+  .navbar {
+     background-color: #e45cc2;
+     color: white;
+     padding: 15px;
+     position: sticky;
+     top: 0;
+     z-index: 1000;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+  }
+  .navbar ul {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-grow: 1;
+  }
+  .navbar a {
+     color: white;
+     text-decoration: none;
+     padding: 14px 20px;
+     display: inline-block;
+  }
+  .navbar a:hover {
+     background-color: #7fda77;
+     border-radius: 5px;
+     transition: 0.3s;
+  }
+  .logo {
+     width: 80px;
+     margin-right: 20px;
+     border-radius: 50%;
+  }
+  .box-submenu {
+    display: none;
+position: absolute; /* Đặt vị trí tuyệt đối dựa vào phần tử chứa nó */
+background-color: white; /* Màu nền là màu trắng */
+padding: 5px 0; /* Giảm khoảng cách bên trong để thu nhỏ phần tử */
+border-radius: 5px; /* Bo tròn các góc với bán kính 5px */
+z-index: 8; /* Xếp chồng phần tử lên các phần tử khác có z-index thấp hơn */
+text-align: center; /* Căn giữa nội dung văn bản */
+font-size: 0.9em; /* Giảm kích thước chữ để tạo cảm giác nhỏ hơn */
 }
 
-      .navbar li {
-         position: relative;
-      }
-      .navbar li:hover .box-submenu {
-         display: block;
-      }
-      .box-submenu ul {
-         list-style: none;
-         padding: 0;
-         margin: 0;
-      }
-      .box-submenu ul li {
-         padding: 10px 20px;
-         border-bottom: 1px solid #ccc;
-      }
-      .box-submenu ul li:last-child {
-         border-bottom: none;
-      }
-      .box-submenu ul li a {
-         color: #FF6666;
-         text-decoration: none;
-         transition: color 0.3s;
-      }
-      .box-submenu ul li:hover a {
-         color: #ef4ef5;
-      }
-      .cart {
-         color: white;
-         padding: 10px 20px;
-         background-color: rgb(240, 118, 179)5;
-         border-radius: 30px;
-         text-decoration: none;
-         transition: background-color 0.3s;
-      }
-      .cart:hover {
-         background-color: #d9539f;
-      }    /* Thêm một chút khoảng cách cho .kieu1 */
-    .kieu1 {
-        padding: 20px;
-        text-align: center;
-        color: salmon;
-        font-weight: bold;
-        margin-top: 10px; /* Thêm khoảng cách trên */
-    }
-    .timkiem {
-         text-align: center;
-         padding-top: 30px;
-      }
-      .timkiem-a {
-         width: 500px;
-         height: 30px;
-         border: 1px solid #ccc;
-         border-radius: 4px;
-      }
-      .timkiem button {
-         padding: 5px 10px;
-         margin-left: 5px;
-         background-color: #e45cc2;
-         color: white;
-         border: none;
-         border-radius: 4px;
-         cursor: pointer;
-      }
-      .timkiem button:hover {
-         background-color: #d04cb2;
-      }
-      
-      .marquee-container {
-      
-              width: 100%;
-              overflow: hidden;
-              background-color: white;
-              color: rgb(28, 29, 29);
-              padding: 15px 0px;
-              position:unset;
-              box-sizing: border-box;
-              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-              letter-spacing: 2px;
-          }
-
-
-          .marquee {
-              display: inline-block;
-              white-space: nowrap;
-              position: absolute;
-              will-change: transform;
-              animation: marquee 20s linear infinite;
-          }
-
-
-          @keyframes marquee {
-              from {
-                  transform: translateX(100%);
-              }
-              to {
-                  transform: translateX(-100%);
-              }
-          }
-          * {box-sizing: border-box;}
-          body {font-family: Arial, sans-serif;}
-
-
-    .video{
-        display: flex;
-                
-        margin: auto;
-        height: 600px;
-      
-        
-                width: 100%;
-            
-                object-fit: cover;
-    }
-    .chu{
-        color: rgb(250, 84, 172);
-    font-family:Georgia, 'Times New Roman', Times, serif
-    font-style: oblique;
+  .navbar li {
+     position: relative;
+  }
+  .navbar li:hover .box-submenu {
+     display: block;
+  }
+  .box-submenu ul {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+  }
+  .box-submenu ul li {
+     padding: 10px 20px;
+     border-bottom: 1px solid #ccc;
+  }
+  .box-submenu ul li:last-child {
+     border-bottom: none;
+  }
+  .box-submenu ul li a {
+     color: #FF6666;
+     text-decoration: none;
+     transition: color 0.3s;
+  }
+  .box-submenu ul li:hover a {
+     color: #ef4ef5;
+  }
+  .cart {
+     color: white;
+     padding: 10px 20px;
+     background-color: rgb(240, 118, 179)5;
+     border-radius: 30px;
+     text-decoration: none;
+     transition: background-color 0.3s;
+  }
+  .cart:hover {
+     background-color: #d9539f;
+  }    /* Thêm một chút khoảng cách cho .kieu1 */
+.kieu1 {
+    padding: 20px;
     text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); 
-    }
-    /* Định dạng chung cho phần sản phẩm */
-    .products {
+    color: salmon;
+    font-weight: bold;
+    margin-top: 10px; /* Thêm khoảng cách trên */
+}
+.timkiem {
+     text-align: center;
+     padding-top: 30px;
+  }
+  .timkiem-a {
+     width: 500px;
+     height: 30px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+  }
+  .timkiem button {
+     padding: 5px 10px;
+     margin-left: 5px;
+     background-color: #e45cc2;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+  }
+  .timkiem button:hover {
+     background-color: #d04cb2;
+  }
+  
+  .marquee-container {
+  
+          width: 100%;
+          overflow: hidden;
+          background-color: white;
+          color: rgb(28, 29, 29);
+          padding: 15px 0px;
+          position:unset;
+          box-sizing: border-box;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          letter-spacing: 2px;
+      }
+
+
+      .marquee {
+          display: inline-block;
+          white-space: nowrap;
+          position: absolute;
+          will-change: transform;
+          animation: marquee 20s linear infinite;
+      }
+
+
+      @keyframes marquee {
+          from {
+              transform: translateX(100%);
+          }
+          to {
+              transform: translateX(-100%);
+          }
+      }
+      * {box-sizing: border-box;}
+      body {font-family: Arial, sans-serif;}
+
+      .products {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -238,6 +218,15 @@
     .product button:hover {
         background-color: #f3a8cc; /* Màu khi di chuột qua nút */
     }
+    .old-price {
+    text-decoration: line-through;
+    color: red;
+}
+
+.new-price {
+    font-weight: bold;
+    color: green;
+}
 
     /* Định dạng cho input số lượng */
     .product input[type="number"] {
@@ -266,36 +255,36 @@
         gap: 20px;
         justify-content: center;
     }
+    table {
+            width: 100%; 
+            height: 250px ; 
+            border-collapse: collapse; /* Gộp các đường viền lại */
+        }
 
-    /* Định dạng nút Xem thêm */
-    .load-more {
-        text-align: center; /* Canh giữa nút ở cuối trang sản phẩm */
-        margin-top: 20px; /* Khoảng cách giữa sản phẩm và nút */
-        justify-content: center;
-    }
+        th, td {
+            border: 1px solid #c4dcf3; /* Đường viền */
+            padding: 10px; /* Khoảng cách bên trong ô */
+            text-align: center; /* Căn giữa nội dung */
+          
+        width: 25%;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
 
-    .btn-load-more {
-        background-color: #f86c9b; /* Màu nền nổi bật */
-        color: white; /* Màu chữ */
-        border: none;
-        padding: 10px 20px; /* Khoảng đệm bên trong nút */
-        font-size: 16px; /* Cỡ chữ */
-        border-radius: 5px; /* Bo tròn góc nút */
-        cursor: pointer;
-        transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi khi hover */
-    }
-
-    /* Hiệu ứng khi di chuột vào nút */
-    .btn-load-more:hover {
-        background-color: #00ff0d; /* Thay đổi màu khi di chuột qua */
-    }
-    .custom-hr {
-                border: none;
-                height: 3px;
-                background-color:black; /* Màu sắc đường kẻ */
-                margin: 20px 0; /* Khoảng cách trên và dưới */
-            }
-      </style>
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Màu nền cho hàng chẵn */
+        }
+.anh{
+    width: 100%;
+    height: 500px;
+}
+.thanh{
+    background-color: cyan;
+    text-align: center;
+}
+</style>
     </head>
           <div class="marquee">
               [こんにちは！] Chào mừng bạn đến với thế giới mỹ phẩm Japan của shop Nguyen Thuong chúc bạn có một trải nghiệm mua sắm thật vui vẻ ＜３
@@ -353,15 +342,23 @@
               </li>
           </ul>
       </div>
-<br>
 
-    <video class="video"  autoplay muted loop>
-        <source src="SERUM Animation in Blender_ 3D Product Commercial _ LIGHT PRODUCTION.mp4" type="video/mp4">
-    </video><br>
-    <br>
-    <br>
+<img src="media/sale5.jpg"class="anh">
+<table>
   
-    <h1 class="chu"> Dòng sản phẩm về makeup </h1>
+    <tbody>
+        <tr>
+            <td><img src="media/sale1.jpg"></td>
+            <td><img src="media/sale2.jpg"></td>
+            <td><img src="media/sale3.jpg"></td>
+            <td><img src="media/sale4.jpg"></td>
+        </tr>
+       
+    </tbody>
+</table>
+
+  <h1 class="thanh">START SALE </h1>
+
     <section class="products">
         <div class="product">
             
@@ -369,18 +366,22 @@
          
             
             <h3>combo makeup</h3>
-            <p>Giá: 2.000.000 VNĐ</p> 
+            <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
         </div>
         <div class="product">
             
-                <img src="media/son1.jpg" alt="Sản Phẩm 2">
+                <img src="media/sonbong.jpg" alt="Sản Phẩm 2">
            
             <h3>son hela</h3>
             
-            <p>Giá: 200.000 VNĐ</p>   </a>
+            <p>Giá cũ: <span class="old-price">250.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">100.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -391,7 +392,9 @@
             
             <h3>Phấn hồng</h3>
           
-            <p>Giá: 250.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">150.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">100.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -402,7 +405,9 @@
             
             <h3>Mắt kara</h3>
           
-            <p>Giá: 150.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">200.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">100.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -415,7 +420,9 @@
             
             <h3>Phấn mắt</h3>
             
-            <p>Giá: 250 .000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">200.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -426,7 +433,9 @@
             
             <h3>Kem nền</h3>
            
-            <p>Giá: 250.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">250.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">100.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -437,7 +446,9 @@
             
             <h3>Mihobeba</h3>
            
-            <p>Giá: 100.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">220.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">110.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -448,23 +459,18 @@
             
             <h3>Son mezy</h3>
            
-            <p>Giá: 160.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">200.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">120.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
         </div>
         
     </section>
-    <section class="productst">
-      <!-- Các sản phẩm sẽ nằm ở đây -->
-      
-      <!-- Nút Xem thêm ở dưới -->
-      <div class="load-more">
-          <button class="btn-load-more">Xem thêm</button>
-      </div>
-  </section>
+   
   <hr class="custom-hr">
-    <h1 class="chu"> Dòng sản phẩm về Dưỡng Da </h1>
+  
     <section class="products">
         <div class="product">
             
@@ -472,7 +478,9 @@
          
             
             <h3>Mặt nạ</h3>
-            <p>Giá: 100.000 VNĐ</p> 
+            <p>Giá cũ: <span class="old-price">450.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -483,7 +491,9 @@
            
             <h3>Son dưỡng</h3>
             
-            <p>Giá: 220.000 VNĐ</p>   </a>
+            <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">200.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -494,7 +504,9 @@
             
             <h3>Serum</h3>
           
-            <p>Giá: 250.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">250.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">200.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -505,7 +517,9 @@
             
             <h3>Dưỡng ẩm </h3>
           
-            <p>Giá: 350.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -518,7 +532,9 @@
             
             <h3>Collagen</h3>
             
-            <p>Giá: 2050 .000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">500.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -529,7 +545,9 @@
             
             <h3>hoa hồng</h3>
            
-            <p>Giá: 150.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">200.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">100.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -540,7 +558,9 @@
             
             <h3>Xịt khoáng</h3>
            
-            <p>Giá: 130.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">250.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">100.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -551,7 +571,9 @@
             
             <h3>Dưỡng mi</h3>
            
-            <p>Giá: 160.000 VNĐ</p>
+            <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+            <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
             <label for="quantity2">Số lượng:</label>
             <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
             <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -559,15 +581,10 @@
        
     </section>
     <section class="productst">
-      <!-- Các sản phẩm sẽ nằm ở đây -->
-      
-      <!-- Nút Xem thêm ở dưới -->
-      <div class="load-more">
-          <button class="btn-load-more">Xem thêm</button>
-      </div>
+    
   </section>
   <hr class="custom-hr">
-    <h1 class="chu"> Dòng sản phẩm về Dưỡng Tóc </h1>
+  
     <section class="products">
       <div class="product">
             
@@ -575,7 +592,9 @@
     
     <h3>serum</h3>
    
-    <p>Giá: 150.000 VNĐ</p>
+    <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
     <label for="quantity2">Số lượng:</label>
     <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
     <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -586,7 +605,9 @@
     
     <h3>Xịt bưởi</h3>
    
-    <p>Giá: 130.000 VNĐ</p>
+    <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+    <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
     <label for="quantity2">Số lượng:</label>
     <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
     <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -597,7 +618,9 @@
     
     <h3>kem ủ</h3>
    
-    <p>Giá: 160.000 VNĐ</p>
+    <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+    <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
     <label for="quantity2">Số lượng:</label>
     <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
     <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
@@ -608,21 +631,15 @@
     
     <h3>dầu xả</h3>
    
-    <p>Giá: 150.000 VNĐ</p>
+    <p>Giá cũ: <span class="old-price">350.000 VND</span></p>
+                <p>Giá mới: <span class="new-price">300.000 VND</span></p>
+
     <label for="quantity2">Số lượng:</label>
     <input type="number" id="quantity2" name="quantity" min="1" value="1" style="width: 40px;">
     <button onclick="addToCart('Tên Sản Phẩm 2', document.getElementById('quantity2').value)"><a href="#contact"><img src="media/giỏ hong.png" alt="Giỏ Hàng" style="width: 40px; height: 40px;"></a></button>  
 </div>
 
 </section>
-<section class="productst">
-  <!-- Các sản phẩm sẽ nằm ở đây -->
-  
-  <!-- Nút Xem thêm ở dưới -->
-  <div class="load-more">
-      <button class="btn-load-more"><a href="hotspp.html">Xem thêm</button></a>
-  </div>
-</section><br>
 <hr class="custom-hr">
 <div class="hi">
   <!-- Footer -->
